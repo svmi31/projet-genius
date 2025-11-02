@@ -24,7 +24,6 @@ class FiliereController extends Controller
             'descript' => $request->descript,
         ]);
 
-        // ✅ message de confirmation
         return redirect()->back()->with('success', 'Filière ajoutée avec succès !');
     }
 }
