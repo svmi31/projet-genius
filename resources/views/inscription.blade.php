@@ -15,12 +15,16 @@
 <body class="bg-gray-100 min-h-screen flex items-center justify-center font-[Poppins]">
     <div class="bg-white shadow-md rounded-2xl p-8 w-full max-w-md">
 
-        {{-- Message de succès --}}
-        @if (session('success'))
-            <p class="text-green-600 text-center mb-4 font-medium bg-green-100 border border-green-300 rounded-lg py-2">
-                {{ session('success') }}
-            </p>
-        @endif
+       
+        @if (session('error'))
+    <p class="text-red-600 text-center mb-4 font-medium bg-red-100 border border-red-300 rounded-lg py-2">
+        {{ session('error') }}
+    </p>
+    @elseif (session('success'))
+    <p class="text-green-600 text-center mb-4 font-medium bg-green-100 border border-green-300 rounded-lg py-2">
+        {{ session('success') }}
+    </p>
+    @endif
 
         
         <button onclick="window.location='{{ route('etablissement.create') }}'" class="mb-4 text-blue-600 hover:underline font-medium">

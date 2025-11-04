@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('filieres', function (Blueprint $table) {
-            $table->id();
-            $table -> text('nom');
-            $table -> text('descript');
-            $table->timestamps();
-        });
+       Schema::create('filieres', function (Blueprint $table) {
+        $table->id();
+        $table->string('nom')->unique(); 
+        $table->text('descript');       
+        $table->timestamps();
+});
+
     }
 
 };

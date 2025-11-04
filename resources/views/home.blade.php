@@ -27,9 +27,9 @@
             <p class='text-lg text-gray-500'>Découvrez les établissements et les filières qu'ils proposent</p>
         </div>
         <div class="relative top-4">
-            <form action="{{route('etablissements.index')}}" method="get" class="flex items-center mb-4 sm:mb-0">
-                <ion-icon name="search-outline" class="relative left-6 sm:left-8 sm:top-0.5 text-black"></ion-icon>
-                <input type="search" name="search" class="border border-gray-500 p-1.5 rounded-lg sm:w-xl pl-8" placeholder="Rechercher un établissement ou une filière...">
+            <form action="{{route('etablissements.index')}}" method="get" class="flex items-center md:mb-0 mb-4 sm:mb-0">
+                <ion-icon name="search-outline" class="relative left-6 sm:left-8 sm:top-0.5 md:top-0.5 text-black"></ion-icon>
+                <input type="search" name="search" class="border border-gray-500 p-1.5 rounded-lg md:w-xl sm:w-xs pl-8" placeholder="Rechercher un établissement ou une filière...">
                 <button type="submit" class="border border-blue-500 text-blue-500 p-2 rounded-lg ml-2 hover:bg-blue-500 hover:text-white cursor-pointer transition duration-700">
                     Rechercher
                 </button>
@@ -38,18 +38,21 @@
     </header>
 
     <nav>
-        <button onclick="window.location.href='{{ route('admin') }}'" class=" w-14 h-14 cursor-pointer fixed bottom-8 right-4 bg-white border border-gray-300 shadow-lg rounded-full p-4 hover:bg-gray-100 hover:-translate-y-1.5 transition duration-300">
+        <button onclick="window.location.href='{{ route('login') }}'" class=" w-14 h-14 cursor-pointer fixed bottom-8 right-4 bg-white border border-gray-300 shadow-lg rounded-full p-4 hover:bg-gray-100 hover:-translate-y-1.5 transition duration-300">
             <i class="ri-user-line text-orange-500 text-xl "></i>
         </button>
     </nav>
 
     <!-- contenue du site (liste des etablissement) -->
      
-<section class="p-8 grid sm:grid-cols-3 gap-6">
+<section class="p-8 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
     @if($etablissement->isEmpty())
         <p class="col-span-full text-center text-gray-500 text-lg">Aucun établissement trouvé.</p>
     @else
         @foreach ($etablissement as $etablissement)
+        if($filiere == 0)
+        <p class="col-span-full text-center text-gray-500 text-lg"></p>
+        
         <div class="border border-gray-200 shadow-lg rounded-xl overflow-hidden bg-white flex flex-col">
 
             <!-- Image/Icone -->
@@ -60,17 +63,17 @@
             <!-- Nom et Type -->
             <div class="px-4 py-2 flex justify-between items-center">
                 <h2 class="text-2xl w-2/3 font-bold text-gray-800">{{ $etablissement->descriptetat }} ({{ $etablissement->nometat }})</h2>
-                <span class="{{ $etablissement->type === 'Université' ? 'bg-orange-100 text-orange-500' : 'bg-blue-100 text-blue-500' }} text-sm font-medium p-1 rounded-lg border">
+                <span class="{{ $etablissement->type === 'Université' ? 'bg-orange-100 text-orange-500' : 'bg-blue-100 text-blue-500' }} text-sm font-medium p-1 rounded-lg ">
                     {{ $etablissement->type }}
                 </span>
             </div>
 
             <!-- Ville -->
-            <div class="px-4 text-gray-500 mb-2">Ville : {{ $etablissement->ville }}</div>
+            <div class="px-4 text-gray-500 mb-2">{{ $etablissement->ville }}</div>
 
             <!-- Filières 2 max -->
             <div class="px-4 mb-4">
-                <h3 class="font-medium mb-1">Filières :</h3>
+                <h3 class="font-medium mb-1 font-['poppins'] text-lg">Filières </h3>
                 <ul class="grid grid-cols-2 gap-2">
                     @foreach ($etablissement->filieres->take(3) as $filiere)
                         <li class="border border-gray-200 rounded-lg text-center py-1 bg-gray-50">{{ $filiere->nom }}</li>
@@ -93,31 +96,70 @@
 
         <!-- popup -->
 <div id="modal-{{ $etablissement->id }}" 
-     class="fixed inset-0 bg-gray-200/45 hidden items-center justify-center z-50"
-     style="backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);">
-            <div class="bg-white rounded-xl w-11/12 sm:w-2/3 lg:w-1/2 p-6 relative shadow-lg max-h-[90vh] overflow-y-auto">
+     class="fixed inset-0 bg-gray-200/50 hidden items-center justify-center z-50"
+     style="backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: opacity 0.3s ease;">
+    <div class="bg-white rounded-xl w-11/12 sm:w-2/3 lg:w-1/2 p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
 
-                <button onclick="fermer('modal-{{ $etablissement->id }}')" class="absolute top-2 right-3 text-gray-500 text-2xl">&times;</button>
+        <button onclick="fermer('modal-{{ $etablissement->id }}')" 
+                class="absolute top-0 right-4 text-gray-600 hover:text-red-500 text-3xl font-bold cursor-pointer transition-colors" 
+                aria-label="Fermer le modal">&times;</button>
 
-                <h2 class="text-2xl font-bold mb-3">{{ $etablissement->descriptetat }} ({{ $etablissement->nometat }})</h2>
-                <p class="mb-2"><strong>Type :</strong> {{ $etablissement->type }}</p>
-                <p class="mb-2"><strong>Ville :</strong> {{ $etablissement->ville }}</p>
-                @if($etablissement->liensite)
-                <p class="mb-2"><strong>Site web :</strong> <a href="{{ $etablissement->liensite }}" target="_blank" class="text-blue-600 underline">{{ $etablissement->liensite }}</a></p>
-                @endif
-                <h3 class="text-lg font-medium mt-4 mb-2">Contact</h3>
-                <p class="mb-2"><strong>Téléphone :</strong> {{ $etablissement->contact }}</p>
-                <p class="mb-2"><strong>Email :</strong> {{ $etablissement->email }}</p>
-                <h3 class="text-lg font-medium mt-4 mb-2">Filières proposées</h3>
-                <ul class="list-disc list-inside"> 
-                    @forelse ($etablissement->filieres as $filiere)
-                        <li>{{ $filiere->nom }}</li>
-                    @empty
-                        <li>Aucune filière disponible</li>
-                    @endforelse
-                </ul>
-            </div>
-        </div>
+            <div class=" mt-2.5 flex justify-center items-center py-16 rounded-lg {{ $etablissement->type === 'Université' ? 'bg-orange-100' : 'bg-blue-100' }}">
+                <h2 class=" text-2xl {{ $etablissement->type === 'Université' ? 'text-orange-600' : 'text-blue-600'}}">
+                    {{ $etablissement->descriptetat }}({{ $etablissement->nometat }})
+                </h2>
+            </div> 
+
+        <p class="mb-4 flex items-center gap-2 text-gray-700 text-lg">
+            <i class="ri-map-pin-2-fill text-blue-500"></i>
+            <strong>Ville :</strong> {{ $etablissement->ville }}
+        </p>
+
+        <p class="mb-4 flex items-center gap-2 text-gray-700 text-lg">
+            <i class="ri-bank-fill text-blue-500"></i>
+            <strong>Type :</strong> {{ $etablissement->type }}
+        </p>
+
+        @if($etablissement->liensite)
+        <p class="mb-6 flex items-center gap-2 text-gray-700 text-lg">
+            <i class="ri-links-fill text-blue-500"></i>
+            <strong>Site web :</strong> 
+            <a href="{{ $etablissement->liensite }}" target="_blank" class="text-blue-600 underline hover:text-blue-800 transition">
+                {{ $etablissement->liensite }}
+            </a>
+        </p>
+        @endif
+
+        <h3 class="text-xl font-semibold mb-4 flex items-center gap-3 text-indigo-600">
+            <i class="ri-phone-fill text-indigo-500 text-2xl"></i> Contact
+        </h3>
+
+        <p class="mb-3 flex items-center gap-2 text-gray-700">
+            <i class="ri-phone-line"></i> 
+            <strong>Téléphone :</strong> {{ $etablissement->contact }}
+        </p>
+        <p class="mb-6 flex items-center gap-2 text-gray-700">
+            <i class="ri-mail-line"></i> 
+            <strong>Email :</strong> {{ $etablissement->email }}
+        </p>
+
+        <h3 class="text-xl font-semibold mb-3 flex items-center gap-3 text-green-600">
+            <i class="ri-stack-fill text-green-500 text-2xl"></i> Filières proposées
+        </h3>
+        <ul class="list-disc grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3
+         list-inside text-gray-800 space-y-1">
+            @forelse ($etablissement->filieres as $filiere)
+                <li class="flex items-center gap-3 border border-gray-200 shadow shadow-gray-200 rounded-lg p-2">
+                    <i class="ri-checkbox-circle-fill text-green-600"></i> {{ $filiere->nom }}
+                </li> 
+            @empty
+                <li>Aucune filière disponible</li>
+            @endforelse
+        </ul>
+
+    </div>
+</div>
+
         @endforeach
     @endif
 

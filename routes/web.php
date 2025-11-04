@@ -29,6 +29,11 @@ Route::put('/etablissement/{id}', [EtablissementController::class, 'update'])
 // Suppression
 Route::delete('/etablissement/{id}', [EtablissementController::class, 'destroy'])
     ->name('etablissement.destroy');
-// route admin
+// route super admin
 Route::get('/admin', [EtablissementController::class, 'admin'])
     ->name('admin');
+// Route pour admin
+Route::get('/dashboard',[AdminController::class, 'select'])
+    ->name('login');
+Route::get('/dashboard/show',[AdminController::class, 'show'])
+    ->name('admin_e');

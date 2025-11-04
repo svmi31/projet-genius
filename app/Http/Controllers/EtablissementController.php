@@ -56,7 +56,7 @@ class EtablissementController extends Controller
         // Attacher toutes les filières (cochées + nouvelle)
         $etablissement->filieres()->attach($filiereIds);
 
-        return redirect()->back()->with('success', 'Établissement ajouté avec succès !');
+        return redirect()->back()->with('success', 'Établissement ajouté avec succès ! Votre ID est : ' . $etablissement->id);
     }
 
     public function index(Request $request)

@@ -116,21 +116,21 @@
 
 </body>
 <script>
-    function login(){
-        const Password = document.getElementById('password').value;
-        const Login = document.getElementById('login');
-        const Content = document.getElementById('content');
-        const Error = document.getElementById('error');
+   function login(){
+    const Password = document.getElementById('password').value;
+    const Login = document.getElementById('login');
+    const Content = document.getElementById('content'); // corrigé ici
+    const Error = document.getElementById('error');
 
-        if(Password == 'admin123'){
-            Error.textContent='Connexion reussi !';
-            Login.classList.remove('block');
-            Login.classList.add('hidden');
-            Content.classList.remove('hidden');
-        } else{
-            Error.textContent = 'Mot de passe incorrect !';
-            Error.classList.add('bg-red-100 border border-red-300');
-        }
+    if(Password == 'admin'){
+        Error.textContent = 'Connexion réussie !';
+        Login.classList.add('hidden');
+        Login.classList.remove('block');
+        Content.classList.remove('hidden');
+    } else {
+        Error.textContent = 'Mot de passe incorrect !';
     }
+}
+
 </script>
 </html>
