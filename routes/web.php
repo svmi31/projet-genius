@@ -37,3 +37,5 @@ Route::get('/dashboard',[AdminController::class, 'select'])
     ->name('login');
 Route::get('/dashboard/show',[AdminController::class, 'show'])
     ->name('admin_e');
+// route pour la visibilité de l'application
+Route::patch('/etablissement/{etablissement}/toggle-visible', [EtablissementController::class, 'toggleVisible'])->name('etablissement.toggleVisible');

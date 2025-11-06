@@ -41,22 +41,26 @@
                 <td class="p-8 text-center text-xl border-b border-gray-300">{{$etablissement->descriptetat}}</td>
               </tr>
               <tr>
-                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}"">Email</th>
+                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}">Sigle de l'etablissement</th>
+                <td class="p-8 text-center text-xl border-b border-gray-300">{{$etablissement->nometat}}</td>
+              </tr>
+              <tr>
+                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}">Email</th>
                 <td class="p-8 text-center text-xl border-b border-gray-300">{{$etablissement->email}}</td>
               </tr>
               <tr>
-                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}"">Type</th>
+                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}">Type</th>
                 <td class="p-8 text-center text-xl border-b border-gray-300">{{$etablissement->type}}</td>
               </tr>
               <tr>
-                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}"">Ville</th>
+                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}">Ville</th>
                 <td class="p-8 text-center text-xl border-b border-gray-300">{{$etablissement->ville}}</td>
               </tr>
               <tr>
-                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}"">Site web</th>
+                <th class="p-8 text-left border-b border-gray-300 {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}">Site web</th>
                 <td class="p-8 text-center text-xl border-b border-gray-300">{{$etablissement->liensite}}</td>
               </tr>
-                <th class="p-8 text-left {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}"">Action</th>
+                <th class="p-8 text-left {{ $etablissement->type === 'Université' ? 'bg-orange-50' : 'bg-blue-50'}}">Action</th>
                 <td class="p-8 text-center flex justify-center items-center gap-2">
                   <button onclick="window.location.href='{{ route('etablissement.edit', $etablissement->id) }}'" class="text-blue-500 border bg-blue-50 px-2 py-1 rounded hover:text-blue-800 cursor-pointer">
                       <i class="ri-edit-line"></i>Modifier

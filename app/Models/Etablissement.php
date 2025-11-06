@@ -16,7 +16,9 @@ class Etablissement extends Model
         'contact',
         'email',
         'liensite',
-        'type'
+        'type',
+        'photo',
+        'visible',
     ];
 
     public function filieres()

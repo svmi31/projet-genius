@@ -17,9 +17,11 @@ return new class extends Migration
             $table -> text('ville') ->nullable();
             $table -> string('liensite') -> nullable();
             $table -> string('descriptetat');
-            $table -> string('contact');
-            $table -> string('email') -> unique();
+            $table -> string('contact')->nullable();
+            $table -> string('email') -> unique()->nullable();
             $table -> string('type');
+            $table -> string('photo')->nullable();
+            $table -> boolean('visible')->default(false);
             $table -> timestamps();
         });
     }

@@ -28,19 +28,19 @@
       Modifier l'établissement
     </h1>
 
-    <form action="{{ route('etablissement.update', $etablissement->id) }}" method="POST" class="space-y-6">
+    <form action="{{ route('etablissement.update', $etablissement->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
       @csrf
       @method('PUT')
 
       <!-- Nom et Description -->
       <div class="flex flex-col sm:flex-row sm:space-x-6 gap-4">
         <div class="flex-1">
-          <label class="font-medium mb-1 block">Nom</label>
+          <label class="font-medium mb-1 block">Sigle de l'Etablissement</label>
           <input type="text" name="nometat" value="{{ $etablissement->nometat }}"
                  class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
         </div>
         <div class="flex-1">
-          <label class="font-medium mb-1 block">Description</label>
+          <label class="font-medium mb-1 block">Nom de l'Etablissement</label>
           <input type="text" name="descriptetat" value="{{ $etablissement->descriptetat }}"
                  class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
         </div>
@@ -51,28 +51,32 @@
         <div class="flex-1">
           <label class="font-medium mb-1 block">Ville</label>
           <input type="text" name="ville" value="{{ $etablissement->ville }}"
-                 class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+                 class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" >
         </div>
         <div class="flex-1">
           <label class="font-medium mb-1 block">Type</label>
-          <select name="type" class="w-full border p-3 rounded-lg bg-white focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
-            <option value="Université" {{ $etablissement->type == 'Université' ? 'selected' : '' }}>Université</option>
-            <option value="Grande-École" {{ $etablissement->type == 'Grande-École' ? 'selected' : '' }}>Grande École</option>
-          </select>
+           <select name="type" class="w-full border border-gray-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+                    <option value="" disabled selected>Choisissez le type</option>
+                    <option value="Grande-École"{{ $etablissement->type == 'Grande-École' ? 'selected' : '' }}>Grande École</option>
+                    <option value="Université Privée" {{ $etablissement->type == 'Université Privée' ? 'selected' : '' }}>Université Privée</option>
+                    <option value="Université Publique"{{ $etablissement->type == 'Université Publique' ? 'selected' : '' }}>Université Publique</option>
+                </select>
         </div>
       </div>
 
+      <div>
+               
       <!-- Contact et Email -->
       <div class="flex flex-col sm:flex-row sm:space-x-6 gap-4">
         <div class="flex-1">
           <label class="font-medium mb-1 block">Contact</label>
           <input type="text" name="contact" value="{{ $etablissement->contact }}"
-                 class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+                 class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" >
         </div>
         <div class="flex-1">
           <label class="font-medium mb-1 block">Email</label>
           <input type="email" name="email" value="{{ $etablissement->email }}"
-                 class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" required>
+                 class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none" >
         </div>
         <div class="flex-1">
           <label class="font-medium mb-1 block">Lien de site web</label>
@@ -80,6 +84,30 @@
                  class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
         </div>
       </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 font-medium mb-1">Photo actuelle</label>
+
+        @if($etablissement->photo)
+            <img src="{{ asset('storage/' . $etablissement->photo) }}" 
+                 alt="Photo actuelle"
+                 class="w-32 h-32 object-cover rounded-lg border">
+        @else
+            <p class="text-gray-500 italic">Aucune photo enregistrée</p>
+        @endif
+    </div>
+
+    <!-- photo -->
+    <div class="mb-4">
+    <label class="block text-gray-700 font-medium mb-2">Photo</label>
+    <label for="photoInput" 
+           class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+        <i class="ri-image-add-line text-5xl text-gray-400"></i>
+
+        <p class="mt-2 text-gray-600">Cliquez pour sélectionner une image</p>
+        <input id="photoInput" type="file" name="photo" accept="image/*" class="hidden">
+    </label>
+
+</div>
 
       <!-- Filières -->
       <div>
