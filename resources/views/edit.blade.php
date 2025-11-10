@@ -23,7 +23,6 @@
 <body class="bg-blue-50 min-h-screen flex items-center justify-center font-[Poppins] p-6">
 
   <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-8xl">
-
     <h1 class="text-3xl font-semibold text-blue-600 mb-8 text-center">
       Modifier l'établissement
     </h1>

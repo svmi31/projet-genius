@@ -94,7 +94,7 @@ class EtablissementController extends Controller
 
         return view('home', compact('etablissement'));
     }
-
+// mofication etablissement
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -169,7 +169,7 @@ class EtablissementController extends Controller
 
         return redirect()->route('admin')->with('success', 'Mise à jour réussie ');
     }
-
+// suppression etablissement
     public function destroy($id)
     {
         $etablissement = Etablissement::findOrFail($id);
